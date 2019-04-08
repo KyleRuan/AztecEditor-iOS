@@ -2,13 +2,13 @@ version: 2.1
 
 orbs:
   # This uses the iOS Orb located at https://github.com/wordpress-mobile/circleci-orbs
-  ios: wordpress-mobile/ios@0.0.24
+  ios: wordpress-mobile/ios@dev:split-caching
 
 workflows:
   test_and_validate:
     jobs:
       - ios/test:
-          name: Test
+          name: Test 10.2
           xcode-version: "10.2.0"
           carthage-update: true
           carthage-working-directory: Example
@@ -19,14 +19,26 @@ workflows:
           device: iPhone XS
           ios-version: "12.2"
 
-      - ios/validate-podspec:
-          name: Validate WordPress-Aztec-iOS.podspec
-          xcode-version: "10.2.0"
-          podspec-path: WordPress-Aztec-iOS.podspec
+      - ios/test:
+          name: Test 10.1
+          xcode-version: "10.1.0"
+          carthage-update: true
+          carthage-working-directory: Example
+          bundle-install: false
+          pod-install: false
+          workspace: Aztec.xcworkspace
+          scheme: AztecExample
+          device: iPhone XS
+          ios-version: "12.1"
 
-      - ios/validate-podspec:
-          name: Validate WordPress-Editor-iOS.podspec
-          xcode-version: "10.2.0"
-          podspec-path: WordPress-Editor-iOS.podspec
-          # Updating specs is needed since WordPress-Editor-iOS depends on WordPress-Aztec-iOS
-          update-specs-repo: true
+      # - ios/validate-podspec:
+      #     name: Validate WordPress-Aztec-iOS.podspec
+      #     xcode-version: "10.2.0"
+      #     podspec-path: WordPress-Aztec-iOS.podspec
+
+      # - ios/validate-podspec:
+      #     name: Validate WordPress-Editor-iOS.podspec
+      #     xcode-version: "10.2.0"
+      #     podspec-path: WordPress-Editor-iOS.podspec
+      #     # Updating specs is needed since WordPress-Editor-iOS depends on WordPress-Aztec-iOS
+      #     update-specs-repo: true
