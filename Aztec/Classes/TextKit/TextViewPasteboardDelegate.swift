@@ -11,7 +11,7 @@ open class AztecTextViewPasteboardDelegate: TextViewPasteboardDelegate {
     open func tryPasting(in textView: TextView) -> Bool {
         return tryPastingURL(in: textView)
             || tryPastingHTML(in: textView)
-            || tryPastingAttributedString(in: textView)
+//            || tryPastingAttributedString(in: textView)
             || tryPastingString(in: textView)
     }
 
